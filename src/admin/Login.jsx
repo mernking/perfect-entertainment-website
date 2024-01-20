@@ -8,17 +8,20 @@ const Login = () => {
     const handleLogin = async () => {
         try {
             const res = await axios.post('https://pvc-api-a4ce.onrender.com/api/login', { email, password });
-            console.log(res.data);
 
-            if (res.data === "Login successful") {
-                navigate('/events');
-                console.log("Login successful");
-            } else {
-                navigate('/signup');
-                console.log("Login failed");
-            }
+            // Extract the token from the response
+            const token = res.data.token;  // Assuming the token is in a property named 'token'
+
+            // Store the token in local storage or session storage
+            localStorage.setItem('jwtToken', token);  // For persistent storage across sessions
+            // or
+            sessionStorage.setItem('jwtToken', token);  // For storage within the current session
+
+            console.log("Login successful");
+            navigate('/events');
         } catch (err) {
             console.log(err);
+            navigate('/signup');
         }
     };
 
