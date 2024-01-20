@@ -7,7 +7,7 @@ export default function Authorize({ children }) {
     const [authorized, setAuthorized] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/private-page', { withCredentials: true })
+        axios.get('https://pvc-api-a4ce.onrender.com/api/private-page', { withCredentials: true })
             .then(res => {
                 console.log(res.data);
                 if (res.data.message === "Welcome to the private page") {

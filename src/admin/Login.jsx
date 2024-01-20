@@ -5,22 +5,23 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const handleLogin = () => {
-        axios.post('https://pvc-api-a4ce.onrender.com/api/login', { email, password })
-            .then(res => {
-                console.log(res.data);
-                if (res.data === "Login successful") {
-                    navigate('/events');
-                    console.log("Login successful");
-                } else {
-                    navigate('/signup');
-                    console.log("Login failed");
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    const handleLogin = async () => {
+        try {
+            const res = await axios.post('https://pvc-api-a4ce.onrender.com/api/login', { email, password });
+            console.log(res.data);
+
+            if (res.data === "Login successful") {
+                navigate('/events');
+                console.log("Login successful");
+            } else {
+                navigate('/signup');
+                console.log("Login failed");
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
+
 
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-gray-100 shadow-lg rounded-md">
